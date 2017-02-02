@@ -26,6 +26,14 @@ chrome.runtime.onInstalled.addListener(() => {
         id: 'itcssLint',
         contexts
     });
+
+    chrome.contextMenus.create({
+        title: 'Log $.publish events',
+        id: 'jsLogJqueryEvents',
+        type: 'checkbox',
+        checked: false,
+        contexts
+    });
 });
 
 chrome.contextMenus.onClicked.addListener((e, tab) => {
@@ -35,3 +43,15 @@ chrome.contextMenus.onClicked.addListener((e, tab) => {
         active: e.checked
     });
 });
+
+const commandHandlers = {};
+
+commandHandlers.tabReorderRight = () => {
+    chrome.tabs.getSelected(undefined, tab => chrome.tabs.move(tab.id, { index: tab.index + 1 }));
+};
+
+commandHandlers.tabReorderLeft = () => {
+    chrome.tabs.getSelected(undefined, tab => chrome.tabs.move(tab.id, { index: tab.index - 1 }));
+};
+
+chrome.commands.onCommand.addListener(command => commandHandlers[command] && commandHandlers[command](command));

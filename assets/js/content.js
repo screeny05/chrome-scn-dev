@@ -41,6 +41,19 @@
         });
     };
 
+    contextMenuHandlers.jsLogJqueryEvents = req => {
+        const $inject = document.createElement('script');
+        $inject.innerHTML = `
+            const orgPublish = $.publish;
+
+            $.publish = function(eventName, ...args){
+                console.log(eventName, args);
+                orgPublish(eventName, ...args);
+            };
+        `;
+        document.head.appendChild($inject);
+    };
+
     contextMenuHandlers.itcssLint = req => {
         const namespaces = ['o', 'c', 'u', 's', 't', 'is', 'has'];
         const suffixes = ['xs', 's', 'ms', 'sm', 'md', 'lg', 'l', 'xl', 'print'];

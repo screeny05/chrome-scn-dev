@@ -3,7 +3,7 @@
 
     "name": "chrome-scn-dev",
     "description": "Scn Dev Extension for Chrome",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "icons": {
         "16": "assets/img/icon-16.png",
         "48": "assets/img/icon-48.png",
@@ -19,6 +19,23 @@
         "matches": ["http://*/*", "https://*/*"],
         "js": ["assets/js/content.js"]
     }],
+
+    "commands": {
+        "tabReorderLeft": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Left",
+                "mac": "MacCtrl+Shift+Left"
+            },
+            "description": "Move current Tab one position to the left."
+        },
+        "tabReorderRight": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Right",
+                "mac": "MacCtrl+Shift+Right"
+            },
+            "description": "Move current Tab one position to the right."
+        }
+    },
 
     "permissions": [
         "activeTab",
