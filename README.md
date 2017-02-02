@@ -6,5 +6,5 @@ Chrome extension for developers
 * remove [require] and related attributes
 * force scrollbars
 * lint itcss / bem
-* atom-like tab-reordering (ctrl+shift+<left|right>)
+* atom-like tab-reordering (ctrl+shift+[left|right])
 * logging $.publish events to the console
