@@ -54,6 +54,25 @@
         document.head.appendChild($inject);
     };
 
+    contextMenuHandlers.bitbucketToggleFilter = req => {
+        let extensions = req.config['bitbucket--filter-extensions'];
+        let isBlacklist = req.config['bitbucket--filter-blacklist'];
+        extensions = extensions.split(',');
+        extensions = extensions.map(extension => extension.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"));
+        const extensionRegex = new RegExp(`(${extensions.join('|')})$`, 'i');
+
+        const $inject = document.createElement('script');
+        $inject.innerHTML = `
+            $('.bb-patch .bb-udiff').each((i, el) => {
+                const $el = $(el);
+                const $content = $el.find('.refract-content-container');
+                const path = $el.data('filename');
+                $content.toggle(path.match(${extensionRegex}) !== null !== ${isBlacklist});
+            });
+        `;
+        document.head.appendChild($inject);
+    };
+
     contextMenuHandlers.itcssLint = req => {
         const namespaces = ['o', 'c', 'u', 's', 't', 'is', 'has'];
         const suffixes = ['xs', 's', 'ms', 'sm', 'md', 'lg', 'l', 'xl', 'print'];

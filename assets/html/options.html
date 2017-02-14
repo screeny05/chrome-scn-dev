@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head><title>chrome-scn-dev options</title></head>
+<body>
+    <form data-save-options="true">
+        <div>
+            <label for="bitbucket--file-filter">Bitbucket File filter (comma separated):</label>
+            <input type="text" id="bitbucket--filter-extensions" placeholder="e.g. .twig, .php, .less">
+        </div>
+
+        <div>
+            <label>
+                <input type="checkbox" id="bitbucket--filter-blacklist">
+                Is blacklist
+            </label>
+        </div>
+
+
+        <div id="status"></div>
+        <button type="submit">Save</button>
+    </form>
+
+    <script src="/assets/js/options.js"></script>
+</body>
+</html>

@@ -1,46 +1,41 @@
 chrome.runtime.onInstalled.addListener(() => {
     const contexts = ['all'];
 
-    chrome.contextMenus.create({
+    [{
         title: 'Reload CSS',
-        id: 'domReloadCss',
-        contexts
-    });
-
-    chrome.contextMenus.create({
+        id: 'domReloadCss'
+    }, {
         title: 'Un[require] Inputs',
-        id: 'htmlRemoveRequired',
-        contexts
-    });
-
-    chrome.contextMenus.create({
+        id: 'htmlRemoveRequired'
+    }, {
         title: 'Force Scrollbars',
         id: 'cssForceScrollbars',
         type: 'checkbox',
-        checked: false,
-        contexts
-    });
-
-    chrome.contextMenus.create({
+        checked: false
+    }, {
         title: 'Lint ITCSS',
-        id: 'itcssLint',
-        contexts
-    });
-
-    chrome.contextMenus.create({
+        id: 'itcssLint'
+    }, {
         title: 'Log $.publish events',
         id: 'jsLogJqueryEvents',
         type: 'checkbox',
-        checked: false,
-        contexts
-    });
+        checked: false
+    }, {
+        title: 'Filter Bitbucket PR',
+        id: 'bitbucketToggleFilter',
+        type: 'checkbox',
+        checked: false
+    }].forEach(menu => chrome.contextMenus.create(Object.assign(menu, { contexts })));
 });
 
 chrome.contextMenus.onClicked.addListener((e, tab) => {
     const id = e.menuItemId;
-    chrome.tabs.sendMessage(tab.id, {
-        action: id,
-        active: e.checked
+    chrome.storage.sync.get(config => {
+        chrome.tabs.sendMessage(tab.id, {
+            action: id,
+            active: e.checked,
+            config
+        });
     });
 });
 

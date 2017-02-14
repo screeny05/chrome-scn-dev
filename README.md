@@ -8,3 +8,4 @@ Chrome extension for developers
 * lint itcss / bem
 * atom-like tab-reordering (ctrl+shift+[left|right])
 * logging $.publish events to the console
+* bitbucket file filter
