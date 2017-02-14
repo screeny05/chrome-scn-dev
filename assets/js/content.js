@@ -56,7 +56,12 @@
 
     contextMenuHandlers.bitbucketToggleFilter = req => {
         let extensions = req.config['bitbucket--filter-extensions'];
-        let isBlacklist = req.config['bitbucket--filter-blacklist'];
+        const isBlacklist = req.config['bitbucket--filter-blacklist'];
+
+        if(!extensions){
+            return;
+        }
+
         extensions = extensions.split(',');
         extensions = extensions.map(extension => extension.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"));
         const extensionRegex = new RegExp(`(${extensions.join('|')})$`, 'i');

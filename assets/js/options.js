@@ -24,24 +24,28 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     };
 
-    const restoreValues = () => {
-        chrome.storage.sync.get(values => {
-            Object.keys(values).forEach(key => {
-                const value = values[key];
-                const $input = getInputById(key);
-                setInputValue($input, value);
-            });
-        });
-    };
-
-    const saveValues = () => {
+    const serializeForm = () => {
         const values = {};
         $inputs.forEach($input => {
             values[$input.id] = getInputValue($input);
         });
 
-        chrome.storage.sync.set(values);
+        return values;
     };
+
+    const deserializeForm = values => {
+        Object.keys(values).forEach(key => {
+            const value = values[key];
+            const $input = getInputById(key);
+            if(!$input){
+                return;
+            }
+            setInputValue($input, value);
+        });
+    };
+
+    const restoreValues = () => chrome.storage.sync.get(deserializeForm);
+    const saveValues = () => chrome.storage.sync.set(serializeForm());
 
     $form.addEventListener('submit', e => {
         e.preventDefault();
